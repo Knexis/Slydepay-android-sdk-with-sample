@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="Gray_1">#F0F0F0</color>
+    <color name="red">#FF0000</color>
+    <color name="Green">#003300</color>
+    <color name="Green_1">#009900</color>
+    <color name="Green_2">#00CC66</color>
+    <color name="Green_3">#6E9F0E</color>
+    <color name="Green_4">#00FF00</color>
+    <color name="Green_5">#00FF99</color>
+    <color name="Green_6">#339900</color>
+    <color name="Green_7">#33CC00</color>
+    <color name="Green_8">#33FF00</color>
+    <color name="Green_9">#66CC00</color>
+    <color name="Green_10">#66FF00</color>
+    <color name="Green_11">#99FF99</color>
+    <color name="Green_12">#556B2F</color>
+
+
+    <color name="green_order_list">#67b16f</color>
+
+    <!--Miscellaneous-->
+    <color name="transparent">#00000000</color>
+    <color name="transparent2">#26FFFFFF</color>
+    <color name="transparent2pressed">#6CC1D2</color>
+    <color name="tab_background">#6DC1D2</color>
+    <!--<color name="tab_background">#3ea9bb</color>-->
+    <color name="tab_background_pressed">#2D6CD8</color>
+    <color name="title_bar_background">#6dc1d2</color>
+    <color name="tab_highlight">@color/White</color>
+
+    <color name="White">#FFFFFF</color>
+    <color name="White_trans">#9FFFFFFF</color>
+    <color name="White_trans_v_light">#20ffffff</color>
+
+    <color name="Brown_1">#FF8700</color>
+    <color name="Black_1">#AAAAAA</color>
+    <color name="Blue">#0000FF</color>
+    <color name="Pink">#f808f8</color>
+    <color name="transparentWhite">#E8E8E8</color>
+    <color name="transparentWhite2">#D8D8D8</color>
+    <color name="transparentWhite3">#F8F8F8</color>
+
+    <color name="btn_green">#7FBB57</color>
+    <color name="btn_green_pressed">#AFDC81</color>
+    <color name="btn_green_disabled">#AFFE81</color>
+    <color name="btn_green_disabledS">#ff000000</color>
+
+
+    <color name="btn_gplus">#dd4b39</color>
+    <color name="btn_gplus_unpressed">#737373</color>
+
+    <color name="titlebackgroundcolor">#6dc1d2</color>
+    <color name="titlebackgroundcolors">#a6d4df</color>
+
+
+    <!--Sake of IOSCHED-->
+    <color name="trans2">#99000000</color>
+
+
+    <!--Dialog -->
+    <color name="blue_app_dialog_text">#6CC1D2</color>
+    <color name="blue_app_dialog_text_header">#52B6D5</color>
+    <color name="blue_app_dialog_lines">#3EA9BB</color>
+    <color name="gray_app_dialog_lines">#C0C0C0</color>
+    <color name="green_app_dialog">#7FBB57</color>
+    <color name="gray_app_dialog_text">#888888</color>
+    <color name="gray_2_app_dialog_text">#888888</color>
+    <color name="gray_3_app_dialog_text">#909090</color>
+
+    <!--General-->
+    <color name="hint">#A0FFFFFF</color>
+
+    <!--Miscy-->
+    <color name="Black">#000000</color>
+    <color name="trans_black_light">#40000000</color>
+    <color name="trans_black_very_light">#10000000</color>
+    <color name="trans_black">#90000000</color>
+    <color name="trans_black_heavy">#d0000000</color>
+
+    <!-- A light Holo shade of blue -->
+    <color name="holo_blue_light">#ff33b5e5</color>
+
+    <color name="actionbar_background">#6DC1D2</color>
+
+    <color name="blue_dark">#ff0099cc</color>
+
+    <color name="bg_main_start">#ff7b9f3f</color>
+    <color name="bg_main_end">#39b4c8</color>
+    <color name="bg_main_center">#1f8bb0</color>
+
+
+
+
+</resources>
