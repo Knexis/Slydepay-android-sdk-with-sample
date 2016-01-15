@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 PayWithSlydepay.Pay(MainActivity.this,
-                        true,
+                         false,
                         "xxxxx@email.com",
                         "xxxxxxMerchant-keyxxxx",
-                        "testE20frgd",
+                        "pizza4",
                         41, 0, 0, 41,
-                        "Item purchase for le secreto santa",
+                        "Medium sized Peri-peri chicken pizza",
                         "airty501",
-                        "Item purchase for le santa secreto",PAY_WITH_SLYDEPAY);
+                        "Medium sized Peri-peri chicken pizza",PAY_WITH_SLYDEPAY);
 
             }
         });
