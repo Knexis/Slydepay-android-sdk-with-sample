@@ -12,21 +12,11 @@ import java.util.List;
  * Purpose:
  * Note:
  */
-public class UiUtils {
+public class PayWithUiUtils {
 
-
-//    public static boolean isSlydepayPresent(Context context) {
-//        PackageManager pm = context.getPackageManager();
-//        boolean app_installed;
-//        try {
-//            pm.getPackageInfo("com.dreamoval.slydepay.android.cruise", PackageManager.GET_ACTIVITIES);
-//            app_installed = true;
-//        }
-//        catch (PackageManager.NameNotFoundException e) {
-//            app_installed = false;
-//        }
-//        return app_installed;
-//    }
+    public   static final String TRANSACTION_PENDING    = "Sorry the transaction was not completed. It might be still pending";
+    public   static final String TRANSACTION_UNVERIFIED = "Sorry the transaction couldn't be verified";
+    public   static final String MESSAGE = "message";
 
     public static boolean isSlydepayPresent(Context context) {
 
@@ -51,5 +41,13 @@ public class UiUtils {
     }
 
 
+
+    public static String getErrorMessage(String errorCode){
+        if(errorCode.equalsIgnoreCase("Error: 1")){// these errors are not to be show to the user //they are for you// please check
+            return "Please check your credentials that you are using your verified Merchant email and Key";
+        }else{
+            return TRANSACTION_PENDING;
+        }
+    }
 
 }

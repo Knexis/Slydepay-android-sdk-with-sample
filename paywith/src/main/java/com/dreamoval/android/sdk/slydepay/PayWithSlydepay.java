@@ -10,66 +10,65 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.UUID;
 
 import go.slydepay_lib.Slydepay_lib;
 import go.slydepay_lib.Slydepay_lib.APIResult;
 
 public class PayWithSlydepay extends Activity{
 
-    public static final String MY_PREFS_NAME = "MyPrefsFile";
-
-
     static String merchantEmail;
     static String merchantKey;
     static String orderId ;
-    static float subTotal ;
-    static float shipping ;
-    static float tax ;
-    static float total ;
+    static double subTotal ;
+    static double shipping ;
+    static double tax ;
+    static double total ;
     static String comment ;
     static String itemCode ;
     static String description ;
 
     private String token;
 
-    private TextView transactionStatus;
     private ImageView imgTransactionStatus;
 
-    public  static  ProgressDialog progressDialog;
     private static  int PAY_WITH_SLYDEPAY ;
     private static boolean isLIVE;
     private String slydepayCall = "pay.with.slydepay";
+    private ProgressBar pleaseWait;
 
-    public static void Pay(Activity context,
-                           boolean isLive,
-                           String imerchantEmail,
-                           String imerchantKey,
-                           String iorderId ,
-                           float isubTotal ,
-                           float ishipping ,
-                           float itax ,
-                           float itotal ,
-                           String icomment ,
-                           String iitemCode ,
-                           String idescription,
-                           int setRequestCode)
+
+    public static void Pay(Activity context ,
+                           boolean   isLive ,
+                           String    imerchantEmail ,
+                           String    imerchantKey ,
+                           double    itemPrice ,
+                           double    idelivery ,
+                           double    itax ,
+                           String    iitemCode ,
+                           String    icomment ,
+                           String    idescription ,
+                           int       setRequestCode)
     {
-        isLIVE            = isLive;
-        merchantEmail    = imerchantEmail;
-        merchantKey      = imerchantKey;
-        orderId          = iorderId;
-        subTotal         = isubTotal;
-        shipping         = ishipping;
-        tax              = itax;
-        total            = itotal;
-        comment          = icomment;
-        itemCode         = iitemCode;
-        description      = idescription;
-        PAY_WITH_SLYDEPAY   = setRequestCode;
+        isLIVE                     = isLive;
+        merchantEmail              = imerchantEmail;
+        merchantKey                = imerchantKey;
+        orderId                    = UUID.randomUUID().toString();
+        subTotal                   = itemPrice;
+        shipping                   = idelivery;
+        tax                        = itax;
+        total                      = (itemPrice + idelivery + itax);
+        comment                    = icomment;
+        itemCode                   = iitemCode;
+        description                = idescription;
+        PAY_WITH_SLYDEPAY          = setRequestCode;
         context.startActivityForResult(new Intent(context, PayWithSlydepay.class), setRequestCode);
     }
 
@@ -82,19 +81,8 @@ public class PayWithSlydepay extends Activity{
 
         setContentView(R.layout.activity_pay_with_slydepay);
 
-
-        transactionStatus =(TextView)findViewById(R.id.tv_status_text);
+        pleaseWait        = (ProgressBar)findViewById(R.id.pb_please_wait);
         imgTransactionStatus = (ImageView)findViewById(R.id.img_transaction_status);
-
-
-//        transactionStatus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (resultCodeHere != RESULT_OK) {
-//                    startTransaction();
-//                }
-//            }
-//        });
 
         startTransaction();
 
@@ -103,7 +91,7 @@ public class PayWithSlydepay extends Activity{
 
 
     private void startTransaction(){
-        if(!UiUtils.isSlydepayPresent(this))
+        if(!PayWithUiUtils.isSlydepayPresent(this))
         {
             downloadSlydepay();
         }
@@ -113,14 +101,9 @@ public class PayWithSlydepay extends Activity{
 
 
     private void continueTransaction(){
-          token = restoreItemPurchase(orderId);
-        if((token)!=null){
-            createOrder(token,true,null);
-        }
-        else{
-            CreateOrder createOrder = new CreateOrder();
-            createOrder.execute();
-        }
+
+       CreateOrder createOrder = new CreateOrder();
+       createOrder.execute();
 
     }
 
@@ -130,26 +113,29 @@ public class PayWithSlydepay extends Activity{
         @Override
         protected String doInBackground(String... urls) {
             apiResult = Slydepay_lib.CreateOrder(merchantEmail, merchantKey, orderId, subTotal, shipping, tax, total, comment, itemCode, description, isLIVE);
-            saveItemPurchase(orderId,apiResult.getToken());
             return "";
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showProgressDialog();
+            showProgress(true);
         }
 
         @Override
         protected void onPostExecute(String result) {
-            progressDialog.dismiss();
-
-            createOrder(apiResult.getToken(),apiResult.getSuccess(),apiResult.getMessage());
+            showProgress(false);
+            if(apiResult.getSuccess()){
+            createOrder(apiResult.getToken(),apiResult.getSuccess(),apiResult.getMessage());}
+            else{
+            setResultCodeHere(RESULT_CANCELED,getIntentMessage(PayWithUiUtils.getErrorMessage(apiResult.getMessage())));
+            }
         }
     }
 
     private class VerifyConfirmOrder extends AsyncTask<String, Void, String> {
 
+        APIResult verifyApiResult;
         APIResult confirmApiResult;
 
         public VerifyConfirmOrder(){
@@ -158,29 +144,34 @@ public class PayWithSlydepay extends Activity{
         @Override
         protected String doInBackground(String... urls) {
 
-            APIResult verify = Slydepay_lib.VerifyPayment(merchantEmail, merchantKey, orderId,isLIVE);
-            String confirm = "";
-            try{
-            confirmApiResult = Slydepay_lib.ConfirmOrder(merchantEmail,merchantKey,token,verify.getTransactionId(),isLIVE);}
-            catch (Exception e)
-            {e.printStackTrace();}
-            return confirm;
+            verifyApiResult = Slydepay_lib.VerifyPayment(merchantEmail, merchantKey, orderId,isLIVE);
+
+            if(verifyApiResult.getSuccess()){
+            confirmApiResult = Slydepay_lib.ConfirmOrder(merchantEmail,merchantKey,token,verifyApiResult.getTransactionId(),isLIVE);
+            }
+
+            return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showProgressDialog();
+            showProgress(true);
         }
 
         @Override
         protected void onPostExecute(String result) {
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
+            showProgress(false);
+            if(!verifyApiResult.getSuccess()){
+             setResultCodeHere(RESULT_CANCELED,getIntentMessage(verifyApiResult.getMessage()));
+             return;
+            }
             if(confirmApiResult.getSuccess()){
-            setResultCodeHere(RESULT_OK);
+            setResultCodeHere(RESULT_OK,getIntentMessage("Transaction successfully completed!"));
             }
             else{
-            setResultCodeHere(RESULT_CANCELED);
+            setResultCodeHere(RESULT_CANCELED,getIntentMessage(confirmApiResult.getMessage()));
             }
         }
     }
@@ -197,7 +188,7 @@ public class PayWithSlydepay extends Activity{
             Intent intent = new Intent(slydepayCall);
             intent.putExtra("isLive",isLIVE);
             intent.putExtra("token",token);
-            startActivityForResult(intent,PAY_WITH_SLYDEPAY);
+            startActivityForResult(intent, PAY_WITH_SLYDEPAY);
         } catch (ActivityNotFoundException e)
         {
             updateApplication();
@@ -205,7 +196,7 @@ public class PayWithSlydepay extends Activity{
         }
         else{
             tell(""+message);
-            setResultCodeHere(RESULT_CANCELED);
+            setResultCodeHere(RESULT_CANCELED, getIntentMessage(PayWithUiUtils.TRANSACTION_PENDING));
             return;
         }
 
@@ -214,20 +205,16 @@ public class PayWithSlydepay extends Activity{
 
     private void tell(String what)
     {
-        transactionStatus.setText(what);
         Toast.makeText(this, what, Toast.LENGTH_LONG);
     }
 
-    private void saveItemPurchase(String orderId,String token){
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putString(orderId, token);
-        editor.commit();
+    private void showProgress(boolean visible){
+        if(visible)
+        pleaseWait.setVisibility(View.VISIBLE);
+        else
+        pleaseWait.setVisibility(View.INVISIBLE);
     }
 
-    private String restoreItemPurchase(String orderId) {
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        return prefs.getString(orderId, null);
-    }
 
     @Override
     public void onBackPressed() {
@@ -242,22 +229,18 @@ public class PayWithSlydepay extends Activity{
         {
             switch (resultCode){
                 case RESULT_OK:
-                    transactionStatus.setText("Successful");
                     imgTransactionStatus.setImageResource(R.drawable.ic_success);
-
                     VerifyConfirmOrder verifyConfirmOrder = new VerifyConfirmOrder();
                     verifyConfirmOrder.execute();
 
                     break;
                 case RESULT_CANCELED:
-                    transactionStatus.setText("Try again");
                     imgTransactionStatus.setImageResource(R.drawable.ic_failure);
-                    setResultCodeHere(RESULT_CANCELED);
+                    setResultCodeHere(RESULT_CANCELED, data);
                     break;
                 case RESULT_FIRST_USER:
-                    transactionStatus.setText("Try again");
                     imgTransactionStatus.setImageResource(R.drawable.ic_failure);
-                    setResultCodeHere(RESULT_FIRST_USER);
+                    setResultCodeHere(RESULT_FIRST_USER, data);
                     break;
             }
         }
@@ -265,12 +248,17 @@ public class PayWithSlydepay extends Activity{
     }
 
 
-    private void setResultCodeHere(int resultCodeHere)
+    private void setResultCodeHere(int resultCodeHere, Intent intent)
     {
-        setResult(resultCodeHere);
-        finish();
+        setResult(resultCodeHere, intent);
+        this.finish();
     }
 
+    private Intent getIntentMessage(String message){
+        Intent intent = new Intent();
+        intent.putExtra(PayWithUiUtils.MESSAGE, message);
+        return intent;
+    }
 
     private void downloadSlydepay()
     {
@@ -314,32 +302,6 @@ public class PayWithSlydepay extends Activity{
 
 
 
-    public  void showProgressDialog() {
-        //LogUtils.LOGD(TAG, "showProgressDialog");
-        final Activity activity = this;
-        final String message = "Please wait...";
-
-        try {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (!activity.isFinishing()) {
-                        progressDialog = new ProgressDialog(activity);
-                        if (message != null) {
-                            progressDialog.setMessage(message);
-                        }
-                        progressDialog.setCancelable(false);
-                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                        progressDialog.isIndeterminate();
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
 

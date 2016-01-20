@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ExamplePaywithSlydepay.iml" filepath="$PROJECT_DIR$/ExamplePaywithSlydepay.iml" />
       <module fileurl="file://$PROJECT_DIR$/Slydepay-android-sdk-with-sample.iml" filepath="$PROJECT_DIR$/Slydepay-android-sdk-with-sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/paywith/paywith.iml" filepath="$PROJECT_DIR$/paywith/paywith.iml" />
@@ -9,4 +10,3 @@
     </modules>
   </component>
 </project>
-

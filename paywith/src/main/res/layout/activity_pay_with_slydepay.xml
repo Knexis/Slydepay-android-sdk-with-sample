@@ -13,7 +13,8 @@
         android:layout_alignParentStart="true"
         android:background="#f4efef"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
+        android:layout_marginRight="15dp"
+        android:id="@+id/main_Layout">
 
 
 
@@ -33,7 +34,17 @@
             android:textColor="#534b4b"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pb_please_wait"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="false" />
 
     </RelativeLayout>
+
 </RelativeLayout>

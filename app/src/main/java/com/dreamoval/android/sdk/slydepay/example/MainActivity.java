@@ -1,6 +1,8 @@
 package com.dreamoval.android.sdk.slydepay.example;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dreamoval.android.sdk.slydepay.PayWithSlydepay;
+import com.dreamoval.android.sdk.slydepay.PayWithUiUtils;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,20 +40,22 @@ public class MainActivity extends AppCompatActivity {
         payWithSlyepay = findViewById(R.id.layout_pay_with_slydepay);
         transactionStatus = (ImageView)findViewById(R.id.img_transaction_status);
 
-        ((TextView)findViewById(R.id.amount_text)).setTypeface(UiUtils.getTypeface(AMOUNT_FONT,this));
+        ((TextView)findViewById(R.id.amount_text)).setTypeface(UiUtils.getTypeface(AMOUNT_FONT, this));
         payWithSlyepay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 PayWithSlydepay.Pay(MainActivity.this,
-                         false,
-                        "xxxxx@email.com",
-                        "xxxxxxMerchant-keyxxxx",
-                        "pizza4",
-                        41, 0, 0, 41,
-                        "Medium sized Peri-peri chicken pizza",
-                        "airty501",
-                        "Medium sized Peri-peri chicken pizza",PAY_WITH_SLYDEPAY);
+                        false,                      //switch to true when going live with the your app
+                        "xxxxxxMerchant@email.com",  //Replace with Verified Merchant Email
+                        "xxxxxMerchant-keyxxxx",     //Replace with Merchant Key
+                        41.00,                     //item cost
+                        5.0,                       //delivery cost
+                        0,                         //tax cost
+                        "Pizza",                   //name of the item being purchased
+                        "You would love this",     //leave a comment
+                        "Medium sized Peri-peri chicken pizza", // describe the item
+                        PAY_WITH_SLYDEPAY);        //
 
             }
         });
@@ -75,8 +80,24 @@ public class MainActivity extends AppCompatActivity {
                         transactionStatus.setImageResource(R.drawable.ic_failure);
                         break;
                 }
+                if(data!=null){
+                String message = data.getStringExtra(PayWithUiUtils.MESSAGE);
+                showAlert(message);}
         }
 
+    }
+
+
+    private void showAlert(String message){
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(message);
+
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {}});
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 
