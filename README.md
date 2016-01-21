@@ -61,12 +61,15 @@ Unzip the Slydepay-android-sdk-with-sample then Go to Import Module on your Andr
 Navigate into the Slydepay-android-sdk-with-sample and import the "pathwith" module the slydepay_lib module would automatically be selected
 because it is a dependency of the "paywith".
 From your app add "paywith" as a dependency.
+
 From Android Studio :
+```
 ->Right click your project folder 
         ->Open Module Settings 
                 ->Select the Dependency Tab 
                           ->Tap on the green plus sign on the right and select "Module dependency" 
                                     -You would see the "paywith" module. Select it. 
+```
 
 Tap on OK and you are good to go. Not really but you are close
 
