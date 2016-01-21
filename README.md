@@ -88,9 +88,7 @@ Put
 ```
 PayWithSlydepay.Pay(...,false, ......);
 ```
-under ur item pay button
-
-and then wait for the response at
+under your item pay button and then wait for the response at
 
 ```
  //Very Important section of the code. It listens for the results after a transaction call to the slydepay application
