@@ -9,17 +9,17 @@ This is a sample project called "Pizza Yourself". It's a demo of how to connect 
 
 This is a quick guide to get you ready to receive payments in your app via the Slydepay android SDK
 ```
-PayWithSlydepay.Pay( MainActivity.this,                      //Calling Activity\n   
-                     isLive,                                 //switch to true when going live with the your app\n
-                     Merchant Email address,                 //Replace with Verified Merchant Email\n
-                     Merchant Key,                           //Replace with Merchant Key\n
-                     Item Cost,                              //item cost\n
-                     Delivery Cost,                          //(Optional) delivery cost\n
-                     Tax,                                    //(Optional) tax cost\n
-                     Item name,                              //name of the item being purchased\n
-                     Optional comment,                       //(Optional) leave a comment\n
-                     Item description,                       //describe the item\n
-                     Request code);                          //requestcode\n  
+PayWithSlydepay.Pay( MainActivity.this,                      //Calling Activity 
+                     isLive,                                 //switch to true when going live with the your app
+                     Merchant Email address,                 //Replace with Verified Merchant Email
+                     Merchant Key,                           //Replace with Merchant Key
+                     Item Cost,                              //item cost
+                     Delivery Cost,                          //(Optional) delivery cost
+                     Tax,                                    //(Optional) tax cost
+                     Item name,                              //name of the item being purchased
+                     Optional comment,                       //(Optional) leave a comment
+                     Item description,                       //describe the item
+                     Request code);                          //requestcode
 ```
 
 ###Sample entry
