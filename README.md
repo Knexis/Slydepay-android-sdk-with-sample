@@ -68,7 +68,7 @@ From Android Studio :
         ->Open Module Settings 
                 ->Select the Dependency Tab 
                           ->Tap on the green plus sign on the right and select "Module dependency" 
-                                    -You would see the "paywith" module. Select it. 
+                                    ->You would see the "paywith" module. Select it.
 ```
 
 Tap on OK and you are good to go. Not really but you are close

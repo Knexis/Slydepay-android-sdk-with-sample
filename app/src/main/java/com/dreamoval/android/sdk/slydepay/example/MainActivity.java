@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String AMOUNT_FONT      = "fonts/Roboto-Thin.ttf";
     View payWithSlyepay;
     ImageView transactionStatus;
+    private Double pizzaPrice = 41.30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +42,24 @@ public class MainActivity extends AppCompatActivity {
         transactionStatus = (ImageView)findViewById(R.id.img_transaction_status);
 
         ((TextView)findViewById(R.id.amount_text)).setTypeface(UiUtils.getTypeface(AMOUNT_FONT, this));
+        ((TextView)findViewById(R.id.amount_text)).setText("Cost: "+pizzaPrice +" GHS");
+
+
         payWithSlyepay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 PayWithSlydepay.Pay(MainActivity.this,
-                        false,                      //switch to true when going live with the your app
-                        "xxxxxxMerchant@email.com",  //Replace with Verified Merchant Email
-                        "xxxxxMerchant-keyxxxx",     //Replace with Merchant Key
-                        41.00,                     //item cost
-                        5.0,                       //delivery cost
-                        0,                         //tax cost
-                        "Pizza",                   //name of the item being purchased
-                        "You would love this",     //leave a comment
-                        "Medium sized Peri-peri chicken pizza", // describe the item
-                        PAY_WITH_SLYDEPAY);        //
+                        false,                                   //switch to true when going live with the your app
+                        "xxxxxxMerchant@email.com",              //Replace with Verified Merchant Email
+                        "xxxxxMerchant-keyxxxx",                 //Replace with Merchant Key
+                         pizzaPrice,                              //item cost
+                         5.0,                                    //delivery cost
+                         0,                                      //tax cost
+                        "Pizza",                                 //name of the item being purchased
+                        "You would love this",                   //leave a comment
+                        "Medium sized Peri-peri chicken pizza",  //describe the item
+                         PAY_WITH_SLYDEPAY);                     //requestcode
 
             }
         });
@@ -70,21 +74,20 @@ public class MainActivity extends AppCompatActivity {
             if(requestCode==PAY_WITH_SLYDEPAY)
             {
                 switch (resultCode){
-                    case RESULT_OK:
+                    case RESULT_OK:         //Payment was successful
                         transactionStatus.setImageResource(R.drawable.ic_success);
                         break;
-                    case RESULT_CANCELED:
+                    case RESULT_CANCELED:   //Payment failed
                         transactionStatus.setImageResource(R.drawable.ic_failure);
                         break;
-                    case RESULT_FIRST_USER:
+                    case RESULT_FIRST_USER: //Payment was cancelled by user
                         transactionStatus.setImageResource(R.drawable.ic_failure);
                         break;
                 }
                 if(data!=null){
-                String message = data.getStringExtra(PayWithUiUtils.MESSAGE);
+                String message = data.getStringExtra(PayWithUiUtils.MESSAGE);  //get details of the transaction here
                 showAlert(message);}
         }
-
     }
 
 

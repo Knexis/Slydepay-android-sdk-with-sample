@@ -11,11 +11,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.dreamoval.android.sdk.slydepay.example"
-        minSdkVersion 15
+        applicationId   "com.dreamoval.android.sdk.slydepay.example"
+        minSdkVersion    15
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode      1
+        versionName     "1.0"
     }
     buildTypes {
         release {
@@ -27,8 +27,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
-    //    compile project(':slydepaysdk')
     compile project(':paywith')
 }

@@ -189,7 +189,7 @@ public class PayWithSlydepay extends Activity{
             intent.putExtra("isLive",isLIVE);
             intent.putExtra("token",token);
             startActivityForResult(intent, PAY_WITH_SLYDEPAY);
-        } catch (ActivityNotFoundException e)
+        } catch (Exception e)
         {
             updateApplication();
         }
@@ -225,8 +225,11 @@ public class PayWithSlydepay extends Activity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+
         if(requestCode==PAY_WITH_SLYDEPAY)
         {
+            if(data!=null)
             switch (resultCode){
                 case RESULT_OK:
                     imgTransactionStatus.setImageResource(R.drawable.ic_success);
@@ -282,8 +285,8 @@ public class PayWithSlydepay extends Activity{
 
     private void updateApplication()
     {
-        new AlertDialog.Builder(this).setTitle("Old Slydepay version")
-                .setMessage("Please update Slydepay to continue this transaction.")
+        new AlertDialog.Builder(this).setTitle("Need an update")
+                .setMessage("Please update Slydepay to continue this transaction with your Slydepay Account")
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
