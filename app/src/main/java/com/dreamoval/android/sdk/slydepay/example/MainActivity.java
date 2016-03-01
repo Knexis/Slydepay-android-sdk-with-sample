@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
                 PayWithSlydepay.Pay(MainActivity.this,
                         false,                                   //switch to true when going live with the your app
-                        "xxxxxxMerchant@email.com",              //Replace with Verified Merchant Email
-                        "xxxxxMerchant-keyxxxx",                 //Replace with Merchant Key
+                        "xxxxxxx@xxxxxx.com",              //Replace with Verified Merchant Email
+                        "xxxxMercahntxxxxKeyxxxxx",                 //Replace with Merchant Key
                          pizzaPrice,                              //item cost
                          5.0,                                    //delivery cost
                          0,                                      //tax cost
