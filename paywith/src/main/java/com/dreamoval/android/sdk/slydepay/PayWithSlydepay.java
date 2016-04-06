@@ -2,11 +2,8 @@ package com.dreamoval.android.sdk.slydepay;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,33 +38,36 @@ public class PayWithSlydepay extends Activity{
 
     private static  int PAY_WITH_SLYDEPAY ;
     private static boolean isLIVE;
+    private static boolean showSuccessScreen;
     private String slydepayCall = "pay.with.slydepay";
     private ProgressBar pleaseWait;
 
 
     public static void Pay(Activity context ,
                            boolean   isLive ,
-                           String    imerchantEmail ,
-                           String    imerchantKey ,
+                           boolean   sShowSuccessScreen,
+                           String    sMerchantEmail ,
+                           String    sMerchantKey ,
                            double    itemPrice ,
-                           double    idelivery ,
-                           double    itax ,
-                           String    iitemCode ,
-                           String    icomment ,
-                           String    idescription ,
+                           double    sDelivery ,
+                           double    sTax ,
+                           String    sItemCode ,
+                           String    sComment ,
+                           String    sDescription ,
                            int       setRequestCode)
     {
         isLIVE                     = isLive;
-        merchantEmail              = imerchantEmail;
-        merchantKey                = imerchantKey;
+        showSuccessScreen          = sShowSuccessScreen;
+        merchantEmail              = sMerchantEmail;
+        merchantKey                = sMerchantKey;
         orderId                    = UUID.randomUUID().toString();
         subTotal                   = itemPrice;
-        shipping                   = idelivery;
-        tax                        = itax;
-        total                      = (itemPrice + idelivery + itax);
-        comment                    = icomment;
-        itemCode                   = iitemCode;
-        description                = idescription;
+        shipping                   = sDelivery;
+        tax                        = sTax;
+        total                      = (itemPrice + sDelivery + sTax);
+        comment                    = sComment;
+        itemCode                   = sItemCode;
+        description                = sDescription;
         PAY_WITH_SLYDEPAY          = setRequestCode;
         context.startActivityForResult(new Intent(context, PayWithSlydepay.class), setRequestCode);
     }
@@ -81,8 +81,9 @@ public class PayWithSlydepay extends Activity{
 
         setContentView(R.layout.activity_pay_with_slydepay);
 
-        pleaseWait        = (ProgressBar)findViewById(R.id.pb_please_wait);
+        pleaseWait           = (ProgressBar)findViewById(R.id.pb_please_wait);
         imgTransactionStatus = (ImageView)findViewById(R.id.img_transaction_status);
+        findViewById(R.id.layout_success_screen).setVisibility(View.GONE);
 
         startTransaction();
 
@@ -168,7 +169,10 @@ public class PayWithSlydepay extends Activity{
              return;
             }
             if(confirmApiResult.getSuccess()){
+            if(!showSuccessScreen)
             setResultCodeHere(RESULT_OK,getIntentMessage("Transaction successfully completed!"));
+            else
+            successScreen();
             }
             else{
             setResultCodeHere(RESULT_CANCELED,getIntentMessage(confirmApiResult.getMessage()));
@@ -176,6 +180,20 @@ public class PayWithSlydepay extends Activity{
         }
     }
 
+
+
+    private void successScreen(){
+        findViewById(R.id.layout_success_screen).setVisibility(View.VISIBLE);
+
+        findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResultCodeHere(RESULT_OK,getIntentMessage("Transaction successfully completed!"));
+            }
+        });
+
+        ((TextView)findViewById(R.id.tv_message_success)).setText("An amount of GHS "+total+" has been debited from your Slydepay account");
+    }
 
 
     private void createOrder(String token,boolean success,String message){
@@ -232,7 +250,7 @@ public class PayWithSlydepay extends Activity{
             if(data!=null)
             switch (resultCode){
                 case RESULT_OK:
-                    imgTransactionStatus.setImageResource(R.drawable.ic_success);
+                    //imgTransactionStatus.setImageResource(R.drawable.ic_success);
                     VerifyConfirmOrder verifyConfirmOrder = new VerifyConfirmOrder();
                     verifyConfirmOrder.execute();
 
@@ -251,7 +269,7 @@ public class PayWithSlydepay extends Activity{
     }
 
 
-    private void setResultCodeHere(int resultCodeHere, Intent intent)
+    private void     setResultCodeHere(int resultCodeHere, Intent intent)
     {
         setResult(resultCodeHere, intent);
         this.finish();

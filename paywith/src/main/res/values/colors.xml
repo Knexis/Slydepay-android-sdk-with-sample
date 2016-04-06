@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <color name="Gray_1">#F0F0F0</color>
     <color name="red">#FF0000</color>
+    <color name="santa">#c40b45</color>
     <color name="Green">#003300</color>
     <color name="Green_1">#009900</color>
     <color name="Green_2">#00CC66</color>
@@ -16,23 +17,45 @@
     <color name="Green_10">#66FF00</color>
     <color name="Green_11">#99FF99</color>
     <color name="Green_12">#556B2F</color>
+    <color name="green_pay">#ff66ba5b</color>
+    <color name="orange_pay">#ffe49d24</color>
 
 
     <color name="green_order_list">#67b16f</color>
 
     <!--Miscellaneous-->
     <color name="transparent">#00000000</color>
+    <color name="transparent_white">#00ffffff</color>
     <color name="transparent2">#26FFFFFF</color>
     <color name="transparent2pressed">#6CC1D2</color>
+    <color name="bg_pushalert">#ff35393d</color>
+    <color name="bg_pushalert_trans">#ef35393d</color>
+    <color name="bg_pb_pushalert_cached">#fbbec0c1</color>
+
     <color name="tab_background">#6DC1D2</color>
     <!--<color name="tab_background">#3ea9bb</color>-->
     <color name="tab_background_pressed">#2D6CD8</color>
     <color name="title_bar_background">#6dc1d2</color>
     <color name="tab_highlight">@color/White</color>
 
-    <color name="White">#FFFFFF</color>
+    <color name="White">#ffffff</color>
     <color name="White_trans">#9FFFFFFF</color>
+    <color name="White_trans99">#99FFFFFF</color>
+    <color name="White_trans_trans">#80FFFFFF</color>
+    <color name="White_trans_heavy">#CFFFFFFF</color>
+    <color name="White_trans_v_heavy">#faffffff</color>
     <color name="White_trans_v_light">#20ffffff</color>
+    <color name="White_pressed">#413f291f</color>
+
+    <color name="inv_banner">#ff51e3c2</color>
+    <color name="inv_ring_color_1">#ff1edecc</color>
+    <color name="inv_ring_color_2">#ff7ee9c3</color>
+    <color name="inv_ring_color_3">#ffbbf04b</color>
+    <color name="mat_green_color">#ffc9ff92</color>
+    <color name="mat_green_hint_color">#81c9ff92</color>
+    <color name="mat_yellow_color">#ffffd303</color>
+
+
 
     <color name="Brown_1">#FF8700</color>
     <color name="Black_1">#AAAAAA</color>
@@ -59,6 +82,7 @@
     <color name="trans2">#99000000</color>
 
 
+
     <!--Dialog -->
     <color name="blue_app_dialog_text">#6CC1D2</color>
     <color name="blue_app_dialog_text_header">#52B6D5</color>
@@ -75,6 +99,7 @@
     <!--Miscy-->
     <color name="Black">#000000</color>
     <color name="trans_black_light">#40000000</color>
+    <color name="trans_black_light_2">#60000000</color>
     <color name="trans_black_very_light">#10000000</color>
     <color name="trans_black">#90000000</color>
     <color name="trans_black_heavy">#d0000000</color>
@@ -82,15 +107,96 @@
     <!-- A light Holo shade of blue -->
     <color name="holo_blue_light">#ff33b5e5</color>
 
-    <color name="actionbar_background">#6DC1D2</color>
+
 
     <color name="blue_dark">#ff0099cc</color>
+    <color name="red_verifyMobileNumberBar">#fff4a21a</color>
+    <color name="red_verifyMobileNumberBar_trans">#9ff4a21a</color>
 
-    <color name="bg_main_start">#ff7b9f3f</color>
-    <color name="bg_main_end">#39b4c8</color>
-    <color name="bg_main_center">#1f8bb0</color>
+    <color name="header_normal">#ffe74c3c</color>
+    <color name="header_pressed">#ffc0392b</color>
+    <color name="menu_section_header">#ffececec</color>
+    <color name="menu_section_header_text">#8b000000</color>
+    <color name="signup_background">#fff1f5f7</color>
+    <color name="signup_text_border">#ffebebeb</color>
+    <color name="signup_text_color">#ffa3a6a8</color>
+    <color name="signup_text_heavy_color">#ff737373</color>
+    <color name="signup_text_very_heavy_color">#ff35393d</color>
+    <color name="signup_secretcode_titletext_color">#ffbb5858</color>
+    <color name="signup_secretcode_ring_color">#ffbb5858</color>
+    <color name="signup_create_password_weak_color">#ffe96b66</color>
+    <color name="signup_create_password_medium_color">#ffe4d367</color>
+    <color name="signup_create_password_strong_color">#ff8edf84</color>
 
 
 
+    <color name="pw_secretcode_text_color">#bb333333</color>
+    <color name="pw_secretcode_bar_color">#efefef</color>
+    <color name="pw_card_text_color">#232323</color>
+    <color name="pw_card_text_color_light">#52000000</color>
+
+    <color name="secretcode_text_color">#ffb3b7ba</color>
+    <color name="secretcode_bar_color">#ffe0e1e1</color>
+    <color name="secretcode_title_color">#ff35393d</color>
+    <color name="secretcode_name_color">#ff696564</color>
+    <color name="secretcode_state_color">#ff909388</color>
+    <color name="secretcode_press_color">#90e9e9e9</color>
+
+    <color name="light_gray_header_color">#646663</color>
+
+
+
+    <color name="actionbar_background">#ff6DC1D2</color>
+    <color name="actionbar_dark_background">#ff2a6c94</color>
+
+    <color name="bluish">#2F97C1</color>
+    <color name="bg_main_top">#2F97C1</color>
+    <color name="bg_main_middle">#48BBC4</color>
+    <color name="bg_main_bottom">#2D767C</color>
+    <color name="bg_fab">#CDDC39</color>
+    <color name="bg_fab_dark">#ffa7b637</color>
+    <color name="dialog_blue">#2f97c1</color>
+
+    <color name="bg_fab_white_overlay">#d6ffffff</color>
+    <color name="bg_edittext_error_color">#ffC16C6C</color>
+
+    <!---->
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#ffffff</color>
+    <color name="white_trans_add_card_bg">#37ffffff</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+
+
+    <color name="green_continue">#1fc055</color>
+    <color name="chip_color">#d4edfa</color>
+    <color name="chip_inner_color">#e0e4e4</color>
+    <color name="chip_yellow_color">#fbe191</color>
+    <color name="chip_yellow_inner_color">#eed280</color>
+
+    <color name="purple_color">#5515a9</color>
+    <color name="purple_color_gradient">#651dc4</color>
+
+    <color name="green_color">#108b4c</color>
+    <color name="green_color_gradient">#1caf57</color>
+
+    <color name="blue_color">#5D8BF2</color>
+    <color name="blue_color_gradient">#3545AE</color>
+
+    <color name="pink_color">#d04c84</color>
+    <color name="pink_color_gradient">#d04882</color>
+
+    <color name="default_color">#363434</color>
+    <color name="default_color_gradient">#434141</color>
+
+    <color name="brown_color">#800000</color>
+    <color name="brown_color_gradient">#A52A2A</color>
+
+    <color name="mat_black">#d1000000</color>
 
 </resources>

@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.dreamoval.android.sdk.slydepay.PayWithSlydepay;
 import com.dreamoval.android.sdk.slydepay.PayWithUiUtils;
 
+import go.slydepay_lib.Slydepay_lib;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,11 +52,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 PayWithSlydepay.Pay(MainActivity.this,
-                        false,                                   //switch to true when going live with the your app
-                        "xxxxxxx@xxxxxx.com",              //Replace with Verified Merchant Email
-                        "xxxxMercahntxxxxKeyxxxxx",                 //Replace with Merchant Key
-                         pizzaPrice,                              //item cost
-                         5.0,                                    //delivery cost
+                        false,
+                        true,//switch to true when going live with the your app
+                        "iwallet@dreamoval.com",//"xxxxxxx@xxxxxx.com",                    //Replace with Verified Merchant Email
+                        "bdVI+jtRl80PG4x6NMvYOwfZTZtwfN",//"xxxxMerchantxxxxKeyxxxxx",              //Replace with Merchant Key
+                         pizzaPrice,                             //item cost
+                         0,                                      //delivery cost
                          0,                                      //tax cost
                         "Pizza",                                 //name of the item being purchased
                         "You would love this",                   //leave a comment

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White_trans_v_heavy">
+
+
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--app1:contentPaddingTop="0dp"-->
+    <!--app1:cardBackgroundColor="@color/white"-->
+    <!--app1:cardCornerRadius="0dp"-->
+    <!--app1:cardElevation="55dp"-->
+    <!--app1:cardPreventCornerOverlap="true">-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_shadow_addcard_successful">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#18d8c1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="33.3dp"
+                    android:layout_height="33.3dp"
+                    android:id="@+id/imageView45"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_check_circle_success_36dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Success!"
+                    android:id="@+id/textView77"
+                    android:layout_below="@+id/imageView45"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="9.3dp"
+                    android:textColor="#0e9988"
+                    android:textSize="24sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="10dp"
+            android:background="@color/White">
+
+            <RelativeLayout
+                android:filterTouchesWhenObscured="true"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="21dp">
+
+                <RelativeLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/relativeLayout12">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Payment made"
+                        android:id="@+id/textView84"
+                        android:textSize="18sp"
+                        android:textColor="#109080" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="An amount of GHS 20 has been taken from your Slydepay account."
+                        android:id="@+id/tv_message_success"
+                        android:layout_below="@+id/textView84"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="16dp"
+                        android:textSize="16sp"
+                        android:textColor="#c9000000" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/root"
+                android:gravity="right"
+                android:layout_marginTop="35dp">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="35dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="OK"
+                    android:id="@+id/btn_ok"
+                    android:layout_below="@+id/root"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="#109080"
+                    android:layout_gravity="right"
+                    android:background="@drawable/bg_pw_btn_trans" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+    <!--</android.support.v7.widget.CardView>-->
+</RelativeLayout>

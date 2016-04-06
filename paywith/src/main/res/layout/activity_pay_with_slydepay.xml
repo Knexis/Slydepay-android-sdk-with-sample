@@ -47,4 +47,7 @@
 
     </RelativeLayout>
 
+
+    <include android:id="@+id/layout_success_screen" layout="@layout/view_paywithslydepay_success_screen"></include>
+
 </RelativeLayout>
