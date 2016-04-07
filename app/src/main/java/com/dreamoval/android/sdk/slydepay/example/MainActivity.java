@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 PayWithSlydepay.Pay(MainActivity.this,
-                        false,
-                        true,//switch to true when going live with the your app
+                        false,//switch to true when going live with the your app
+                        true,//switch to true so that we handle the success message after a payment
                         "iwallet@dreamoval.com",//"xxxxxxx@xxxxxx.com",                    //Replace with Verified Merchant Email
                         "bdVI+jtRl80PG4x6NMvYOwfZTZtwfN",//"xxxxMerchantxxxxKeyxxxxx",              //Replace with Merchant Key
                          pizzaPrice,                             //item cost
@@ -89,7 +90,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(data!=null){
                 String message = data.getStringExtra(PayWithUiUtils.MESSAGE);  //get details of the transaction here
-                showAlert(message);}
+                String orderid = data.getStringExtra(PayWithUiUtils.ORDER_ID);  //get order id of the item being purchased
+                Log.i("Order id of item",orderid);
+                showAlert(message);
+                }
         }
     }
 

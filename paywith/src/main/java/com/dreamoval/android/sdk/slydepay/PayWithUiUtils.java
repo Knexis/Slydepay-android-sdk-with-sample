@@ -17,6 +17,7 @@ public class PayWithUiUtils {
     public   static final String TRANSACTION_PENDING    = "Sorry the transaction was not completed. It might be still pending";
     public   static final String TRANSACTION_UNVERIFIED = "Sorry the transaction couldn't be verified";
     public   static final String MESSAGE = "message";
+    public   static final String ORDER_ID = "order_id";
 
     public static boolean isSlydepayPresent(Context context) {
 

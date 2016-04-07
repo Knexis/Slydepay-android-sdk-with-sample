@@ -247,10 +247,10 @@ public class PayWithSlydepay extends Activity{
 
         if(requestCode==PAY_WITH_SLYDEPAY)
         {
+
             if(data!=null)
             switch (resultCode){
                 case RESULT_OK:
-                    //imgTransactionStatus.setImageResource(R.drawable.ic_success);
                     VerifyConfirmOrder verifyConfirmOrder = new VerifyConfirmOrder();
                     verifyConfirmOrder.execute();
 
@@ -269,8 +269,9 @@ public class PayWithSlydepay extends Activity{
     }
 
 
-    private void     setResultCodeHere(int resultCodeHere, Intent intent)
+    private void setResultCodeHere(int resultCodeHere, Intent intent)
     {
+        intent.putExtra(PayWithUiUtils.ORDER_ID,orderId);//attached the order id of the item being purchased
         setResult(resultCodeHere, intent);
         this.finish();
     }
