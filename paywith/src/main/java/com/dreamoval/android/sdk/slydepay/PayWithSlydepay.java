@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import go.slydepay_lib.Slydepay_lib.APIResult;
 
 public class PayWithSlydepay extends Activity{
 
+    private static final String TAG = PayWithSlydepay.class.getSimpleName();
     static String merchantEmail;
     static String merchantKey;
     static String orderId ;
@@ -37,7 +39,7 @@ public class PayWithSlydepay extends Activity{
     private ImageView imgTransactionStatus;
 
     private static  int PAY_WITH_SLYDEPAY ;
-    private static boolean isLIVE;
+    private static boolean isLIVE,apiIntegrationMode;
     private static boolean showSuccessScreen;
     private String slydepayCall = "pay.with.slydepay";
     private ProgressBar pleaseWait;
@@ -45,6 +47,7 @@ public class PayWithSlydepay extends Activity{
 
     public static void Pay(Activity context ,
                            boolean   isLive ,
+                           boolean   sApiIntegrationMode ,
                            boolean   sShowSuccessScreen,
                            String    sMerchantEmail ,
                            String    sMerchantKey ,
@@ -57,6 +60,7 @@ public class PayWithSlydepay extends Activity{
                            int       setRequestCode)
     {
         isLIVE                     = isLive;
+        apiIntegrationMode         = sApiIntegrationMode;
         showSuccessScreen          = sShowSuccessScreen;
         merchantEmail              = sMerchantEmail;
         merchantKey                = sMerchantKey;
@@ -113,7 +117,11 @@ public class PayWithSlydepay extends Activity{
         APIResult apiResult;
         @Override
         protected String doInBackground(String... urls) {
-            apiResult = Slydepay_lib.CreateOrder(merchantEmail, merchantKey, orderId, subTotal, shipping, tax, total, comment, itemCode, description, isLIVE);
+            try {
+                apiResult = Slydepay_lib.CreateOrder(merchantEmail, merchantKey, orderId, subTotal, shipping, tax, total, comment, itemCode, description, isLIVE);
+            }catch (Exception e){
+                Log.d(TAG,e.toString());
+            }
             return "";
         }
 
@@ -147,6 +155,8 @@ public class PayWithSlydepay extends Activity{
 
             verifyApiResult = Slydepay_lib.VerifyPayment(merchantEmail, merchantKey, orderId,isLIVE);
 
+            //Skip the confirmation if API Integration is turned on. As a result all transactions will be pending
+            if(!apiIntegrationMode)
             if(verifyApiResult.getSuccess()){
             confirmApiResult = Slydepay_lib.ConfirmOrder(merchantEmail,merchantKey,token,verifyApiResult.getTransactionId(),isLIVE);
             }
@@ -162,25 +172,35 @@ public class PayWithSlydepay extends Activity{
 
         @Override
         protected void onPostExecute(String result) {
-            //progressDialog.dismiss();
             showProgress(false);
             if(!verifyApiResult.getSuccess()){
              setResultCodeHere(RESULT_CANCELED,getIntentMessage(verifyApiResult.getMessage()));
              return;
-            }
-            if(confirmApiResult.getSuccess()){
-            if(!showSuccessScreen)
-            setResultCodeHere(RESULT_OK,getIntentMessage("Transaction successfully completed!"));
-            else
-            successScreen();
-            }
-            else{
-            setResultCodeHere(RESULT_CANCELED,getIntentMessage(confirmApiResult.getMessage()));
+            }else if(apiIntegrationMode&&verifyApiResult.getSuccess()){
+                analyseResult(true, null);
+            }else if(confirmApiResult!=null){
+                if(confirmApiResult.getSuccess()) {
+                  analyseResult(true, null);
+                }
+                else{
+                  analyseResult(false,confirmApiResult.getMessage());
+                }
             }
         }
     }
 
 
+    private void analyseResult(boolean success,String message){
+        if(success){
+            if(!showSuccessScreen)
+                setResultCodeHere(RESULT_OK,getIntentMessage("Transaction successfully completed!"));
+            else
+                successScreen();
+        }
+        else{
+            setResultCodeHere(RESULT_CANCELED,getIntentMessage(message));//error message
+        }
+    }
 
     private void successScreen(){
         findViewById(R.id.layout_success_screen).setVisibility(View.VISIBLE);
@@ -242,8 +262,6 @@ public class PayWithSlydepay extends Activity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
 
         if(requestCode==PAY_WITH_SLYDEPAY)
         {

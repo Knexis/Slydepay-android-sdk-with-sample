@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String AMOUNT_FONT      = "fonts/Roboto-Thin.ttf";
     View payWithSlyepay;
     ImageView transactionStatus;
-    private Double pizzaPrice = 41.30;
+    private Double pizzaPrice = 1.30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +53,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 PayWithSlydepay.Pay(MainActivity.this,
-                        false,//switch to true when going live with the your app
-                        true,//switch to true so that we handle the success message after a payment
-                        "iwallet@dreamoval.com",//"xxxxxxx@xxxxxx.com",                    //Replace with Verified Merchant Email
-                        "bdVI+jtRl80PG4x6NMvYOwfZTZtwfN",//"xxxxMerchantxxxxKeyxxxxx",              //Replace with Merchant Key
-                         pizzaPrice,                             //item cost
-                         0,                                      //delivery cost
-                         0,                                      //tax cost
-                        "Pizza",                                 //name of the item being purchased
-                        "You would love this",                   //leave a comment
-                        "Medium sized Peri-peri chicken pizza",  //describe the item
-                         PAY_WITH_SLYDEPAY);                     //requestcode
+                        false,//true/false switch to true when going live with the your app
+                        true,//true/false API INTEGRATION MODE  switch to true when going live with the your app//When true all transactions will be in a pending state
+                        true,//true/false switch to true so that we handle the success message after a payment
+                        "xxxxxxx@xxxxxx.com",             //"xxxxxxx@xxxxxx.com",         //Replace with Verified Merchant Email
+                        "xxxxMerchantxxxxKeyxxxxx",       //"xxxxMerchantxxxxKeyxxxxx",   //Replace with Merchant Key
+                         pizzaPrice,                                    //item cost
+                         0,                                             //delivery cost
+                         0,                                             //tax cost
+                        "Pizza",                                        //name of the item being purchased
+                        "You would love this",                          //leave a comment
+                        "Medium sized Peri-peri chicken pizza",         //describe the item
+                         PAY_WITH_SLYDEPAY);                            //requestcode
 
             }
         });
